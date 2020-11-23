@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+// protoc --go_out=plugins=grpc:. *.proto
+package fileService;
+
+message LetterId{
+  uint64 id = 1;
+}
+
+message File{
+  uint64 letterId = 1;
+  string fileType = 2;
+  bytes content = 3;
+}
+
+message User{
+  string email = 1;
+}
+
+message Avatar{
+  string email = 1;
+  string imgType = 2;
+  string content = 3;
+}
+
+message Nothing {
+  bool dummy = 1;
+}
+
+service FileService{
+  rpc SetAvatar(Avatar) returns (Nothing);
+  rpc GetAvatar(User) returns (Avatar);
+  rpc SaveFile(File) returns (Nothing);
+  rpc GetFile(LetterId) returns(File);
+}
